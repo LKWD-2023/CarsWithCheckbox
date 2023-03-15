@@ -1,0 +1,50 @@
+﻿@model HomePageViewModel
+<a href="/home/showaddform" class="btn btn-primary">Add Car</a>
+<table class="table table-hover table-striped table-bordered">
+    <tr>
+        <th>Make</th>
+        <th>Model</th>
+        <th>
+            Year
+            @if (Model.SortAsc)
+            {
+                <a class="btn btn-dark" href="/home/index?sort=desc">
+                    <i class="bi bi-arrow-down-circle-fill"></i>
+                </a>
+            }
+            else
+            {
+                <a class="btn btn-dark" href="/home/index?sort=asc">
+                    <i class="bi bi-arrow-up-circle-fill"></i>
+                </a>
+            }
+        </th>
+        <th>Price</th>
+        <th>Car Type</th>
+        <th>Leather Seats</th>
+    </tr>
+
+    @foreach (Car car in Model.Cars)
+    {
+        <tr>
+            <td>@car.Make</td>
+            <td>@car.Model</td>
+            <td>@car.Year</td>
+            <td>@car.Price.ToString("C")</td>
+            <td>@car.CarType</td>
+            <td>
+                <i style="font-size:30px" class="bi bi-@(car.HasLeatherSeats ? "check" : "x")"></i>
+              @*  @if (car.HasLeatherSeats)
+                {
+                    <i style="font-size:30px" class="bi bi-check"></i>
+                }
+                else
+                {
+                    <i style="font-size:30px" class="bi bi-x"></i>
+                }*@
+            </td>
+
+        </tr>
+    }
+
+</table>
