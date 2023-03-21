@@ -38,12 +38,12 @@ namespace CarsWithCheckbox.Models
             return results;
         }
 
-        public int AddCar(Car car)
+        public void AddCar(Car car)
         {
             using var connection = new SqlConnection(_conStr);
             using var command = connection.CreateCommand();
             command.CommandText = "INSERT INTO Cars (Make, Model, Year, Price, CarType, HasLeatherSeats) " +
-                                  "VALUES (@make, @model, @year, @price, @carType, @hasLeather) SELECT SCOPE_IDENTITY()";
+                                  "VALUES (@make, @model, @year, @price, @carType, @hasLeather); SELECT SCOPE_IDENTITY()";
             command.Parameters.AddWithValue("@make", car.Make);
             command.Parameters.AddWithValue("@model", car.Model);
             command.Parameters.AddWithValue("@year", car.Year);
@@ -52,9 +52,10 @@ namespace CarsWithCheckbox.Models
             command.Parameters.AddWithValue("@hasLeather", car.HasLeatherSeats);
             connection.Open();
 
-            //Example of how to get the most recent id. Useful for the upcoming blog homework
-            int id = (int)(decimal)command.ExecuteScalar();
-            return id;
+            //command.ExecuteNonQuery();
+
+            //useful for the blog site homework
+            int id = (int)(double)command.ExecuteScalar();
         }
     }
 }

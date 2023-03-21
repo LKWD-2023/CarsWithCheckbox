@@ -37,6 +37,7 @@ namespace CarsWithCheckbox.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult AddCar(Car car)
         {
             var db = new CarsWithCheckboxDb(_connectionString);
